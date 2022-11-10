@@ -1,0 +1,27 @@
+# fixes potential error "rakefile not found" on Travis
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  # we build test version of project here
+  - docker build -t piotr-lipiarz/react-test -f ./client/Dockerfile.dev ./client
+
+# primary test running section
+# any step returns other exit code than 0, flow will fail
+script:
+  # Tests for client
+  # by default react npm test stays in listening mode and re-runs tests
+  # to run test once and exit we use ` -e CI=true`
+  - docker run -e CI=true piotr-lipiarz/react-test npm test
+  # Tests for nginx - NO
+  # Tests for server - NO
+  # Tests for worker - NO
+
+after_success:
+  # it will use default Dockerfile
+  - docker build -t piotr-lipiarz/multi-client ./client
+  - docker build -t piotr-lipiarz/multi-nginx ./nginx
+  - docker build -t piotr-lipiarz/multi-server ./server
+  - docker build -t piotr-lipiarz/multi-worker ./worker
