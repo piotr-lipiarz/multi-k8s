@@ -25,3 +25,10 @@ after_success:
   - docker build -t piotr-lipiarz/multi-nginx ./nginx
   - docker build -t piotr-lipiarz/multi-server ./server
   - docker build -t piotr-lipiarz/multi-worker ./worker
+  # Log in to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push images to Docker Hub
+  - docker push piotrlipiarz/multi-client
+  - docker push piotrlipiarz/multi-nxinx
+  - docker push piotrlipiarz/multi-server
+  - docker push piotrlipiarz/multi-worker
