@@ -6,7 +6,7 @@ NGINX serves as reverse proxy.
 
 
 ## Running
-`docker compose up --build`
+`docker compose -f docker-compose-dev.yml up --build`
 
 ## CI Flow
 * Push code to github
