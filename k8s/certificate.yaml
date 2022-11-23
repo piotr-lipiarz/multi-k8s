@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dorepeat-net-tls
+spec:
+  secretName: dorepeat-net
+  issuerRef:
+    name: letsencrypt-pod
+    kind: ClusterIssuer
+  commonName: dorepeat.net
+  dnsNames:
+    - dorepeat.net
+    - www.dorepeat.net
