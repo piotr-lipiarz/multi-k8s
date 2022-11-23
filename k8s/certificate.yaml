@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: dorepeat-net
   issuerRef:
-    name: letsencrypt-pod
+    name: letsencrypt-prod
     kind: ClusterIssuer
   commonName: dorepeat.net
   dnsNames:
