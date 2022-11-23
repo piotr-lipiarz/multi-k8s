@@ -16,7 +16,7 @@ docker push piotrlipiarz/multi-server:$SHA
 docker push piotrlipiarz/multi-worker:$SHA
 
 # Apply K8s to cluster
-kubectl apply -f k8s
+kubectl apply -f k8s k8s-prod
 kubectl set image deployments/client-deployment client=piotrlipiarz/multi-client:$SHA
 kubectl set image deployments/server-deployment server=piotrlipiarz/multi-server:$SHA
 kubectl set image deployments/worker-deployment worker=piotrlipiarz/multi-worker:$SHA

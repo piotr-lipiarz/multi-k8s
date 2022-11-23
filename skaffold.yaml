@@ -1,0 +1,47 @@
+# like a docker compose for local development
+# https://skaffold.dev/docs/references/yaml/
+apiVersion: skaffold/v1beta12
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/*
+      - ./k8s-local/*
+build:
+  # images that we want skaffold to manage
+  local:
+    # by default skaffold tries to push to docker hub
+    # we will want to omit it
+    push: false
+  artifacts:
+    - image: piotrlipiarz/multi-client
+      # context is folder
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        # anytime JS file changed take it and throw it to container
+        manual:
+          # if we change some other files, Skaffold will rebuild entire container
+          - src: '**/*.js'
+            dest: .
+          - src: '**/*.css'
+            dest: .
+          - src: '**/*.html'
+            dest: .
+    - image: piotrlipiarz/multi-worker
+      context: worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: piotrlipiarz/multi-server
+      context: server
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
