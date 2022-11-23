@@ -11,7 +11,7 @@ function App() {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Żabki Fib Calculator version K8s on GC
+            Żabki Fib Calculator version K8s on GC V2
           </p>
           <Link to="/">Home</Link>
           <Link to="/otherpage">Other Page</Link>
